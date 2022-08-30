@@ -8,14 +8,22 @@ const spacesound = document.querySelector("#typespace");
 const typelastsound = document.querySelector("#typelast");
 const returnsound = document.querySelector("#typecarriagereturn");
 
+function randomSound() {
+  return Math.floor(Math.random() * 2 + 1);
+}
+
+function randomSpeed() {
+  return Math.floor(Math.random() * 500 + 100);
+}
+
 loop();
 
 function loop() {
-  if (counter < original.length) {
+  if (counter <= original.length) {
     document.querySelector("#typewriter").textContent = original.slice(0, counter);
     playSound();
     counter++;
-    setTimeout(loop, 200);
+    setTimeout(loop, randomSpeed());
   }
 }
 
@@ -23,7 +31,9 @@ function playSound() {
   if (original[counter - 1] === " ") {
     spacesound.play();
     console.log(counter);
+  } else if (counter === original.length) {
+    typelastsound.play();
   } else {
-    typesound1.play();
+    document.querySelector("#typekey" + randomSound()).play();
   }
 }
